@@ -1,3 +1,4 @@
+zig-cache/
 .*.swp
 *.o
 *.xo
