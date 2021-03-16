@@ -68,6 +68,10 @@ pub fn build(b: *std.build.Builder) void {
         "deps/lua/src/strbuf.c",
     }, &.{
         "-std=c99",
+        "-Wall",
+        "-DLUA_ANSI",
+        "-DENABLE_CJSON_GLOBAL",
+        "-DLUA_USE_MKSTEMP",
     });
 
     const redis_cli = b.addExecutable("redis-cli", null);
