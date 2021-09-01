@@ -192,6 +192,9 @@ struct redisServer server; /* Server global state */
  *    TYPE, EXPIRE*, PEXPIRE*, TTL, PTTL, ...
  */
 
+
+void utf8lenCommand(client *c);
+
 struct redisCommand redisCommandTable[] = {
     {"module",moduleCommand,-2,
      "admin no-script",
@@ -232,6 +235,10 @@ struct redisCommand redisCommandTable[] = {
      0,NULL,1,1,1,0,0,0},
 
     {"strlen",strlenCommand,2,
+     "read-only fast @string",
+     0,NULL,1,1,1,0,0,0},
+
+    {"utf8len",utf8lenCommand,2,
      "read-only fast @string",
      0,NULL,1,1,1,0,0,0},
 
@@ -6395,3 +6402,7 @@ int main(int argc, char **argv) {
 }
 
 /* The End */
+
+void *redisObjectGetPtr(struct redisObject *robj) {
+    return robj->ptr;
+}

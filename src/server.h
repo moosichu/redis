@@ -680,6 +680,8 @@ typedef struct redisObject {
     void *ptr;
 } robj;
 
+void *redisObjectGetPtr(struct redisObject *robj);
+
 /* The a string name for an object's type as listed above
  * Native types are checked against the OBJ_STRING, OBJ_LIST, OBJ_* defines,
  * and Module types have their registered name returned. */

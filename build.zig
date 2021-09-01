@@ -103,6 +103,14 @@ pub fn build(b: *std.build.Builder) void {
         "-Wno-missing-field-initializers",
     });
 
+    const t_utf8 = b.addStaticLibrary("t_utf8", "src/t_utf8.zig");
+    t_utf8.setTarget(target);
+    t_utf8.setBuildMode(mode);
+    t_utf8.linkLibC();
+    t_utf8.addIncludeDir("src");
+    t_utf8.addIncludeDir("deps/hiredis");
+    t_utf8.addIncludeDir("deps/lua/src");
+
     const redis_server = b.addExecutable("redis-server", null);
     redis_server.setTarget(target);
     redis_server.setBuildMode(mode);
@@ -110,6 +118,7 @@ pub fn build(b: *std.build.Builder) void {
     redis_server.linkLibC();
     redis_server.linkLibrary(hiredis);
     redis_server.linkLibrary(lua);
+    redis_server.linkLibrary(t_utf8);
     redis_server.addIncludeDir("deps/hiredis");
     redis_server.addIncludeDir("deps/lua/src");
     redis_server.addCSourceFiles(&.{
