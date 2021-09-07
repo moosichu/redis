@@ -63,6 +63,9 @@
 #include <sys/mman.h>
 #endif
 
+void* getPtrFromObj(robj* r) {return r->ptr;}
+unsigned getEncodingFromObj(robj* r) {return r->encoding;}
+
 /* Our shared "common" objects */
 
 struct sharedObjectsStruct shared;
@@ -192,6 +195,8 @@ struct redisServer server; /* Server global state */
  *    TYPE, EXPIRE*, PEXPIRE*, TTL, PTTL, ...
  */
 
+void utf8lenCommand(client *c);
+
 struct redisCommand redisCommandTable[] = {
     {"module",moduleCommand,-2,
      "admin no-script",
@@ -232,6 +237,10 @@ struct redisCommand redisCommandTable[] = {
      0,NULL,1,1,1,0,0,0},
 
     {"strlen",strlenCommand,2,
+     "read-only fast @string",
+     0,NULL,1,1,1,0,0,0},
+
+    {"utf8len",utf8lenCommand,2,
      "read-only fast @string",
      0,NULL,1,1,1,0,0,0},
 
