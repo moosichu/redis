@@ -41,7 +41,7 @@ C11_ATOMIC := $(shell sh -c 'echo "\#include <stdatomic.h>" > foo.c; \
 ifeq ($(C11_ATOMIC),yes)
 	STD+=-std=c11
 else
-	STD+=-std=c99
+	STD+=-std=c11
 endif
 
 PREFIX?=/usr/local
